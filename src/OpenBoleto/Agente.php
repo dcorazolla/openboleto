@@ -66,6 +66,11 @@ class Agente
     /**
      * @var string
      */
+    protected $bairro;
+
+    /**
+     * @var string
+     */
     protected $documento;
 
     /**
@@ -78,7 +83,7 @@ class Agente
      * @param string $cidade
      * @param string $uf
      */
-    public function __construct($nome, $documento, $endereco = null, $cep = null, $cidade = null, $uf = null)
+    public function __construct($nome, $documento, $endereco = null, $cep = null, $cidade = null, $uf = null, $bairro = null)
     {
         $this->setNome($nome);
         $this->setDocumento($documento);
@@ -86,6 +91,7 @@ class Agente
         $cep and $this->setCep($cep);
         $cidade and $this->setCidade($cidade);
         $uf and $this->setUf($uf);
+        $bairro and $this->setBairro($bairro);
     }
 
     /**
@@ -106,6 +112,26 @@ class Agente
     public function getCep()
     {
         return $this->cep;
+    }
+
+    /**
+     * Define o bairro
+     *
+     * @param string $bairro
+     */
+    public function setBairro($bairro)
+    {
+        $this->bairro = $bairro;
+    }
+
+    /**
+     * Retorna o bairro
+     *
+     * @return string
+     */
+    public function getBairro()
+    {
+        return $this->bairro;
     }
 
     /**
@@ -251,5 +277,31 @@ class Agente
     {
         $dados = array_filter(array($this->getCep(), $this->getCidade(), $this->getUf()));
         return implode(' - ', $dados);
+    }
+
+    /**
+     * Retorna o endereço formatado para a linha 2 de endereço
+     *
+     * Ex: 71000-000 - Brasília - DF
+     *
+     * @return string
+     */
+    public function getCidadeUfCep()
+    {
+        $dados = array_filter(array($this->getCidade(), $this->getUf(), $this->getCep()));
+        return implode(' - ', $dados);
+    }
+
+    /**
+     * Retorna o endereço formatado para a linha 2 de endereço
+     *
+     * Ex: 71000-000 - Brasília - DF
+     *
+     * @return string
+     */
+    public function getEnderecoBairro()
+    {
+        $dados = array_filter(array($this->getEndereco(), $this->getBairro()));
+        return implode(', ', $dados);
     }
 }
