@@ -71,6 +71,12 @@ class Brb extends BoletoAbstract
     protected $carteirasNomes = array('1' => 'COB', '2' => 'COB');
 
     /**
+     * Altera layout para o exigido pelo banco
+     * @var string
+     */
+    protected $layout = 'brb.phtml';
+
+    /**
      * Gera o Nosso Número.
      *
      * @return string
